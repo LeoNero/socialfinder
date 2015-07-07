@@ -1,5 +1,6 @@
 var express = require('express')
-  , app = express();
+  , app = express()
+  , mongoose = require('mongoose');
 
 app.configure(function() {
 	app.use(express.logger('dev'));
@@ -15,6 +16,10 @@ app.configure(function() {
 	app.use(express.static(__dirname + '/public'));
 
 	app.use(app.router);
+
+    global.db = mongoose.connect('mongodb://localhost/socialfinder');
+    console.log("connected to database");
+
 });
 
 
