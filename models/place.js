@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
     , Schema = mongoose.Schema;
-    
-var Place = new Schema({
+
+var Place = Schema({
 	geo: {
         type: [Number],
         index: {
@@ -13,4 +13,4 @@ var Place = new Schema({
 	geo_name: String
 })
 
-module.exports = mongoose.model('Place', Place);
+module.exports = db.model('Place', Place);

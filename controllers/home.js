@@ -2,6 +2,12 @@ var request = require('request')
     , moment = require('moment')
     , Place = require('../models/place.js');
 
+var geocoderProvider = 'google';
+var httpAdapter = 'https';
+
+
+var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
+
 var HomeController = {
     index: function(req, res) {
         res.render('home/index')
@@ -23,7 +29,7 @@ var HomeController = {
                     places: allPlaces
                 };
 
-                if (req.query.callback !== undefined) {
+                if (req.query.callback != undefined) {
                     res.jsonp(data);
                 } else {
                     res.json(data);
@@ -32,33 +38,36 @@ var HomeController = {
     },
 
     add_place: function(req, res) {
-        var lat_lng = req.body.latlng;
-        var latlng_array = latlng_str.split(",");
+        var address = req.body.address;
 
-        var new_place = Place({
-		          geo : latlng_array,
-		          geo_name : req.body.geo_name
-	    });
+        geocoder.geocode(address, function(err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                var latitude = res[0].latitude;
+                var longitude = res[0].longitude;
+                var formatted_address = res[0].formattedAddress;
 
-        new_place.save(function(err){
-		    if (err) {
-			    console.log("Error: " + err);
-		    } else {
-			    console.log("Place saved! " + new_place);
-		    }
-	    });
+                var latlng = latitude + ',' + longitude;
+                var latlng_array = latlng.split(",");
 
-        if (req.xhr) {
-            var replyData = {
-			    status : 'OK',
-			    msg : 'Place added!'
-		    };
+                var new_place = Place({
+        		          geo : latlng_array,
+        		          geo_name : formatted_address
+        	    });
 
-            res.json(replyData);
-        } else {
-            res.redirect('/');
-        }
+                new_place.save(function(err){
+        		    if (err) {
+        			    console.log("Error: " + err);
+        		    } else {
+        			    console.log("Place saved! " + new_place);
+        		    }
+        	    });
+
+            }
+        });
     }
+
 };
 
 module.exports = HomeController;
