@@ -15,7 +15,7 @@ var HomeController = {
 
     get_places: function(req, res) {
         Place.find({})
-            .select('geo_name geo')
+            .select('geo_name geo description')
             .exec(function(err, allPlaces) {
                 if (err) {
                     res.send("Unable to query database for places").status(500);
@@ -39,6 +39,7 @@ var HomeController = {
 
     add_place: function(req, res) {
         var address = req.body.address;
+        var description = req.body.description;
 
         geocoder.geocode(address, function(err, res) {
             if (err) {
@@ -53,7 +54,8 @@ var HomeController = {
 
                 var new_place = Place({
         		          geo : latlng_array,
-        		          geo_name : formatted_address
+        		          geo_name : formatted_address,
+                          description: description
         	    });
 
                 new_place.save(function(err){

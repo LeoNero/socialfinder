@@ -56,7 +56,7 @@ function addPlacesOnMap() {
                         icon: "http://maps.google.com/mapfiles/ms/icons/green.png",
                     });
 
-                    bindInfoWindow(marker, map, infowindow, places[p].geo_name);
+                    bindInfoWindow(marker, map, infowindow, "<b>" + places[p].description + "</b><br>" + places[p].geo_name);
 
                     markers.push(marker);
                 }
