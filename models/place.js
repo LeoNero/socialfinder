@@ -13,6 +13,6 @@ var Place = Schema({
 	geo_name: String,
 
     description: String
-})
+});
 
 module.exports = db.model('Place', Place);
