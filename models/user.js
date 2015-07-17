@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 
 
 var User = Schema({
-    id           : String,
+    _id           : String,
     token        : String,
     email        : String,
     name         : String

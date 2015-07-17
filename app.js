@@ -33,7 +33,7 @@ app.configure(function() {
 global.db = mongoose.connect('mongodb://localhost/socialfinder');
 console.log("Connected to database! :D");
 
-require('./config/passport')(passport);
+require('./config/passport.js')(passport);
 require('./routes/home.js')(app, passport);
 
 server.listen(3000, function(){

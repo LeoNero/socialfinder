@@ -3,7 +3,11 @@
 
     <% include options_button %>
 
-    <% include add_place_modal %>
+    <% if (typeof(user) !== 'undefined') { %>
+        <% include add_place_modal %>
+    <% } else { %>
+        <% include login %>
+    <% } %>
 
     <script type="text/javascript">
         $(document).ready(function() {

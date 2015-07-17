@@ -10,7 +10,11 @@ module.exports = function(passport) {
     });
 
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+        User.findOne({_id: id}, function(err, user) {
+            if (err) {
+                console.log(err);
+                done(err);
+            }
             done(err, user);
         });
     });
@@ -23,17 +27,18 @@ module.exports = function(passport) {
         },
         function(token, refreshToken, profile, done) {
             process.nextTick(function() {
-                User.findOne({ 'facebook.id': profile.id }, function(err, user) {
+                User.findOne({'_id': profile.id}, function(err, user) {
                     if (err) {
                         return done(err);
                     }
 
                     if (user) {
+                        console.log("User found!");
                         return done(null, user);
                     } else {
                         var newUser = new User();
 
-                        newUser.id    = profile.id;
+                        newUser._id    = profile.id;
                         newUser.token = token;
                         newUser.name  = profile.name.givenName + ' ' + profile.name.familyName;
                         newUser.email = profile.emails[0].value;
@@ -42,6 +47,8 @@ module.exports = function(passport) {
                             if (err) {
                                 throw err;
                             }
+
+                            console.log("User saved!");
 
                             return done(null, newUser);
                         });

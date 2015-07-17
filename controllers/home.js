@@ -5,12 +5,18 @@ var request = require('request')
 var geocoderProvider = 'google';
 var httpAdapter = 'https';
 
-
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
 
 var HomeController = {
     index: function(req, res) {
-        res.render('home/index')
+
+        if (!req.user) {
+            console.log("Sem user");
+            res.render('home/index');
+        } else {
+            console.log(req.user);
+            res.render('home/index', {user: req.user});
+        }
     },
 
     get_places: function(req, res) {
@@ -41,6 +47,8 @@ var HomeController = {
         var address = req.body.address;
         var description = req.body.description;
 
+        var user = req.user;
+
         geocoder.geocode(address, function(err, res) {
             if (err) {
                 console.log(err);
@@ -65,11 +73,9 @@ var HomeController = {
         			    console.log("Place saved! " + new_place);
         		    }
         	    });
-
             }
         });
     }
-
 };
 
 module.exports = HomeController;
