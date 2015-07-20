@@ -3,10 +3,11 @@ var mongoose = require('mongoose')
 
 
 var User = Schema({
-    _id           : String,
+    _id          : String,
     token        : String,
     email        : String,
-    name         : String
+    name         : String,
+    places       : [{ type: Schema.Types.ObjectId, ref: 'Place' }]   
 })
 
 

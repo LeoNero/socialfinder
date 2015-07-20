@@ -12,7 +12,9 @@ var Place = Schema({
 
 	geo_name: String,
 
-    description: String
+    description: String,
+
+    user: { type: String, ref: 'User' }
 });
 
 module.exports = db.model('Place', Place);
