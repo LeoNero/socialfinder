@@ -1,12 +1,12 @@
-var express         = require('express')
-  , app             = express()
-  , mongoose        = require('mongoose')
-  , server          = require('http').createServer(app)
-  , passport        = require('passport')
-  , flash           = require('connect-flash')
-  , cookieParser    = require('cookie-parser')
-  , bodyParser      = require('body-parser')
-  , session         = require('express-session');
+var express         = require('express');
+var app             = express();
+var mongoose        = require('mongoose');
+var server          = require('http').createServer(app);
+var passport        = require('passport');
+var flash           = require('connect-flash');
+var cookieParser    = require('cookie-parser');
+var bodyParser      = require('body-parser');
+var session         = require('express-session');
 
 app.configure(function() {
 	app.use(express.logger('dev'));
@@ -35,6 +35,7 @@ console.log("Connected to database! :D");
 
 require('./config/passport.js')(passport);
 require('./routes/home.js')(app, passport);
+require('./routes/my_places.js')(app);
 
 server.listen(3000, function(){
   console.log("SocialFinder!");

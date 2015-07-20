@@ -1,7 +1,7 @@
-var request = require('request')
-    , moment = require('moment')
-    , Place = require('../models/place.js')
-    , User = require('../models/user.js');
+var request = require('request');
+var moment = require('moment');
+var Place = require('../models/place.js');
+var User = require('../models/user.js');
 
 var geocoderProvider = 'google';
 var httpAdapter = 'https';
@@ -72,18 +72,18 @@ var HomeController = {
         		    if (err) {
         			    console.log("Error: " + err);
         		    } else {
-        			    console.log("Place saved! " + new_place);
+                        User.findOne({_id: user._id}, function(err, user) {
+                            var user_places = user.places;
+                            user_places.push(new_place);
+
+                            user.save(function() {
+                                console.log("User added place!");
+                            });
+                        });
+
+                        console.log("Place saved! " + new_place);
         		    }
         	    });
-
-                User.findOne({_id: user._id}, function(err, user) {
-                    var user_places = user.places;
-                    user_places.push(new_place);
-
-                    user.save(function() {
-                        console.log("User added place!");
-                    });
-                });
             }
         });
     }

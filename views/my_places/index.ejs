@@ -1,0 +1,16 @@
+<% include ../header %>
+<body>
+
+    <h2>Hi, <%- user.name %>!</h2>
+
+    <% if (places.length == 0) { %>
+        <p><strong>You haven't added anything yet :P</strong></p>
+    <% } else { %>
+        <% places.forEach(function(place, index) { %>
+            <p><strong><%- place.geo_name %></strong></p>
+            <p><%- place.description %></p>
+        <% }) %>
+    <% } %>
+
+</body>
+<% include ../footer %>
