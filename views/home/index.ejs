@@ -1,11 +1,11 @@
 <% include ../header %>
 <body>
 
-    <% include options_button %>
-
     <% if (typeof(user) !== 'undefined') { %>
+        <% include options_button_logged %>
         <% include add_place_modal %>
     <% } else { %>
+        <% include options_button_not_logged %>
         <% include login %>
     <% } %>
 
