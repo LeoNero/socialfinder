@@ -50,13 +50,13 @@ var HomeController = {
 
         var user = req.user;
 
-        geocoder.geocode(address, function(err, res) {
+        geocoder.geocode(address, function(err, response) {
             if (err) {
                 console.log(err);
             } else {
-                var latitude = res[0].latitude;
-                var longitude = res[0].longitude;
-                var formatted_address = res[0].formattedAddress;
+                var latitude = response[0].latitude;
+                var longitude = response[0].longitude;
+                var formatted_address = response[0].formattedAddress;
 
                 var latlng = latitude + ',' + longitude;
                 var latlng_array = latlng.split(",");
@@ -68,7 +68,7 @@ var HomeController = {
                           user        : user._id
         	    });
 
-                new_place.save(function(err){
+                new_place.save(function(err) {
         		    if (err) {
         			    console.log("Error: " + err);
         		    } else {
@@ -82,6 +82,8 @@ var HomeController = {
                         });
 
                         console.log("Place saved! " + new_place);
+
+                        res.redirect('/');
         		    }
         	    });
             }
