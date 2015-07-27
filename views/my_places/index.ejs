@@ -1,22 +1,41 @@
 <% include ../header %>
 <body>
+    <div class="content">
 
-    <h2>Hi, <%- user.name %>!</h2>
+        <nav>
+            <div class="nav-wrapper green">
+                <a href="/" class="brand-logo" style="margin-left: 1.5%;">SocialFinder</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="/">Voltar ao mapa</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
 
-    <% if (places.length == 0) { %>
-        <p><strong>You haven't added anything yet :P</strong></p>
-    <% } else { %>
-        <% places.forEach(function(place, index) { %>
-            <p><strong>Endereço: </strong><%- place.geo_name %></p>
-            <p><strong>O que fazem lá: </strong><%- place.description %></p>
-            <form action="my_places/<%- place._id %>" method="POST">
-                <input type="hidden" name="_method" value="delete">
-                <button type="submit" href="#" class="waves-effect waves-light btn red">Delete place</button>
-            </form>
-            <br>
-            <br>
-        <% }) %>
-    <% } %>
+        <div class="username center">
+            <h3>Olá, <%- user.name %>! Veja os lugares que você adicionou! :D</h3>
+        </div>
+
+        <div class="center container">
+            <% if (places.length == 0) { %>
+                <h4><strong>Você ainda não adicionou nenhum lugar de trabalho voluntário :/</strong></h4>
+            <% } else { %>
+                <% places.forEach(function(place, index) { %>
+                    <ul class="collection with-header z-depth-1">
+                        <li class="collection-header">
+                            <h4><b><%- place.description %></b></h4>
+                            <form action="my_places/<%- place._id %>" method="POST" class="right">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" href="#" class="waves-effect waves-light btn red"><i class="large material-icons">delete</i></button>
+                            </form>
+                        </li>
+                        <li class="collection-item"><p style="font-size: 1.3em;"><strong>Endereço: </strong><%- place.geo_name %></p></li>
+                    </ul>
+                <% }) %>
+            <% } %>
+        </div>
+    </div>
 
 </body>
 <% include ../footer %>

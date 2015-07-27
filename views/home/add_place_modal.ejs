@@ -8,15 +8,15 @@
             <form class="col s12" action="/add_place" method="POST">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input placeholder="Rua XV de Novembro, 52, Curitiba" id="address" name="address" type="text" class="validate">
-                        <label for="address">Address</label>
+                        <input placeholder="Rua Generoso de Paula Bastos, 2245, Santa Cruz, Guarapuava" id="address" name="address" type="text" class="validate">
+                        <label for="address">Endereço</label>
                     </div>
                     <div class="input-field col s6">
-                        <input placeholder="Asilo de Gorpa" id="description" name="description" type="text" class="validate">
-                        <label for="description">Description</label>
+                        <input placeholder="Asilo (SOS) de Guarapuava" id="description" name="description" type="text" class="validate">
+                        <label for="description">Descrição</label>
                     </div>
                     <div class="input-field col s12">
-                        <button type="submit" id="add-location" class="btn waves-effect waves-light disabled" disabled>Submit</button>
+                        <button type="submit" id="add-location" class="btn waves-effect waves-light disabled" disabled>Bora colaborar com sua cidade? ;)</button>
                     </div>
                 </div>
             </form>
@@ -26,7 +26,7 @@
 
 <script type="text/javascript">
 $(function() {
-    
+
 
     $('#address').keyup(function () {
         if ($(this).val() !== '' && $("#description").val() !== '') {
