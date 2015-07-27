@@ -13,13 +13,39 @@
                     </div>
                     <div class="input-field col s6">
                         <input placeholder="Asilo de Gorpa" id="description" name="description" type="text" class="validate">
-                        <label for="address">Description</label>
+                        <label for="description">Description</label>
                     </div>
                     <div class="input-field col s12">
-                        <input type="submit" id="add-location" class="btn waves-effect waves-light" value="Submit">
+                        <button type="submit" id="add-location" class="btn waves-effect waves-light disabled" disabled>Submit</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+$(function() {
+    
+
+    $('#address').keyup(function () {
+        if ($(this).val() !== '' && $("#description").val() !== '') {
+            $("button").removeClass("disabled");
+            $("button").removeAttr("disabled");
+        } else {
+            $("button").addClass("disabled");
+            $("button").attr("disabled", "disabled");
+        }
+    });
+
+    $('#description').keyup(function () {
+        if ($(this).val() !== '' && $("#address").val() !== '') {
+            $("button").removeClass("disabled");
+            $("button").removeAttr("disabled");
+        } else {
+            $("button").addClass("disabled");
+            $("button").attr("disabled", "disabled");
+        }
+    });
+});
+</script>

@@ -50,44 +50,49 @@ var HomeController = {
 
         var user = req.user;
 
-        geocoder.geocode(address, function(err, response) {
-            if (err) {
-                console.log(err);
-            } else {
-                var latitude = response[0].latitude;
-                var longitude = response[0].longitude;
-                var formatted_address = response[0].formattedAddress;
+        if (!address.trim() || !description.trim()) {
+            console.log("Algum campo em branco!");
+			res.redirect('/');
+        } else {
+            geocoder.geocode(address, function(err, response) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var latitude = response[0].latitude;
+                    var longitude = response[0].longitude;
+                    var formatted_address = response[0].formattedAddress;
 
-                var latlng = latitude + ',' + longitude;
-                var latlng_array = latlng.split(",");
+                    var latlng = latitude + ',' + longitude;
+                    var latlng_array = latlng.split(",");
 
-                var new_place = Place({
-        		          geo         : latlng_array,
-        		          geo_name    : formatted_address,
-                          description : description,
-                          user        : user._id
-        	    });
+                    var new_place = Place({
+            		          geo         : latlng_array,
+            		          geo_name    : formatted_address,
+                              description : description,
+                              user        : user._id
+            	    });
 
-                new_place.save(function(err) {
-        		    if (err) {
-        			    console.log("Error: " + err);
-        		    } else {
-                        User.findOne({_id: user._id}, function(err, user) {
-                            var user_places = user.places;
-                            user_places.push(new_place);
+                    new_place.save(function(err) {
+            		    if (err) {
+            			    console.log("Error: " + err);
+            		    } else {
+                            User.findOne({_id: user._id}, function(err, user) {
+                                var user_places = user.places;
+                                user_places.push(new_place);
 
-                            user.save(function() {
-                                console.log("User added place!");
+                                user.save(function() {
+                                    console.log("User added place!");
+                                });
                             });
-                        });
 
-                        console.log("Place saved! " + new_place);
+                            console.log("Place saved! " + new_place);
 
-                        res.redirect('/');
-        		    }
-        	    });
-            }
-        });
+                            res.redirect('/');
+            		    }
+            	    });
+                }
+            });
+        }
     }
 };
 
