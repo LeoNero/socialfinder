@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
     , Schema = mongoose.Schema;
 
+var db = require('../libs/db_connect')();
+
 var Place = Schema({
 	geo: {
         type: [Number],
