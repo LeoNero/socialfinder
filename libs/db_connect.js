@@ -6,7 +6,7 @@ var env_url = {
 };
 
 module.exports = function() {
-    var env = process.env.NODE_ENV || process.env.MONGOLAB_URI || "development";
+    var env = process.env.NODE_ENV ||  process.env.MONGOLAB_URL;
     var url = env_url[env];
 
     if (!single_connection) {
