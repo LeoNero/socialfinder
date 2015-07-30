@@ -6,11 +6,16 @@ var env_url = {
 };
 
 module.exports = function() {
-    var env = process.env.NODE_ENV || process.env.MONGOLAB_URI || "development";
-    var url = env_url[env];
+    var env = process.env.NODE_ENV || process.env.MONGOLAB_URI || "mongodb://localhost/socialfinder";
 
     if (!single_connection) {
-        single_connection = mongoose.connect(url);
+        single_connection = mongoose.connect(env, function(err, res) {
+            if (err) {
+                console.log("Error: " + err + ". " + env);
+            } else {
+                console("No error. " + env);
+            }
+        });
     }
 
     return single_connection;
