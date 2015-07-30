@@ -11,9 +11,10 @@ module.exports = function() {
     if (!single_connection) {
         single_connection = mongoose.connect(env, function(err, res) {
             if (err) {
-                console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+                console.log ('ERROR connecting to: ' + env + '. ' + err);
             } else {
-                console.log ('Succeeded connected to: ' + uristring);
+                console.log ('Succeeded connected to: ' + env);
+            }
         });
     }
 
