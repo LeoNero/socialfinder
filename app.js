@@ -38,6 +38,6 @@ require('./config/passport.js')(passport);
 require('./routes/home.js')(app, passport);
 require('./routes/my_places.js')(app);
 
-server.listen(3000, function(){
+server.listen(process.env.PORT || 3000, function(){
   console.log("SocialFinder!");
 });
