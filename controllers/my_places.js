@@ -2,7 +2,6 @@ var Place = require('../models/place.js')
 var User = require('../models/user.js');
 
 var MyPlacesController = {
-
     index: function(req, res) {
         var user = req.user;
         var _id = user._id;
@@ -21,7 +20,7 @@ var MyPlacesController = {
 
         User.findById(_id, function(err, user) {
             var placeID = req.params.id;
-
+            console.log(placeID);
             user.places.remove(placeID);
 
             user.save(function() {
